@@ -88,7 +88,7 @@ public class JacksonRequest<T> extends Request<T> {
 	 *
 	 * @return The ObjectMapper instance used when mapping network responses
 	 */
-	public static ObjectMapper getObjectMapper() {
+	public ObjectMapper getObjectMapper() {
 		return OBJECT_MAPPER;
 	}
 
@@ -180,9 +180,9 @@ public class JacksonRequest<T> extends Request<T> {
 		if (returnType != null) {
 			try {
 				if (response.data != null) {
-					returnData = OBJECT_MAPPER.readValue(response.data, returnType);
+					returnData = getObjectMapper().readValue(response.data, returnType);
 				} else if (response instanceof JacksonNetworkResponse) {
-					returnData = OBJECT_MAPPER.readValue(((JacksonNetworkResponse)response).inputStream, returnType);
+					returnData = getObjectMapper().readValue(((JacksonNetworkResponse)response).inputStream, returnType);
 				}
 			} catch (Exception e) {
 				VolleyLog.e(e, "An error occurred while parsing network response:");
